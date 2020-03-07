@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-xs-12">
+        <% if(params[:search_model] == "user") %>
+            <h2>Users search for "<%= params[:search_word] %>"</h2>
+            <% if(@users.present?) %>
+                <%= render('./users/index', users: @users) %>
+            <% else %>
+                <h3>No user was matched.</h3>
+            <% end %>
+        <% elsif(params[:search_model] == "book") %>
+            <h2>Books search for "<%= params[:search_word] %>"</h2>
+            <% if(@books.present?) %>
+                <%= render('./books/index', books: @books) %>
+            <% else %>
+                <h3>No book was matched.</h3>
+            <% end %>
+        <% end %>
+    </div>
+</div>
