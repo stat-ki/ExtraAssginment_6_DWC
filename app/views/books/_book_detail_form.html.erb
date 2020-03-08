@@ -1,0 +1,17 @@
+<td>
+    <%= link_to(book.user) do %>
+        <%= attachment_image_tag(book.user, :profile_image, :fill, 100, 100, fallback: "no-image-icon.jpg") %><br>
+        <%= book.user.name %>
+    <% end %>
+</td>
+<td><%= link_to book.title, book %></td>
+<td><%= book.body %></td>
+<!-- いいね機能 -->
+<td>
+
+    <div id="favorite-btn-<%= book.id %>">
+        <%= render("/favorites/form", book: book) %>
+    </div>
+
+</td>
+<td>コメント数：<%= book.book_comments.count %></td>
