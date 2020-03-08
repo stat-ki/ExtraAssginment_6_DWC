@@ -20,26 +20,15 @@
         <% end %>
       </tr>
     </table>
-    <table class="show-tb">
-      <% @book_comments.each do |book_comment| %> <!-- コメント一覧 -->
-        <tr>
-          <td>
-            <%= link_to user_path(book_comment.user), class: "user_#{book_comment.user.id}" do %>
-              <%= attachment_image_tag book_comment.user, :profile_image, :fill, 50, 50, fallback: "no_image.jpg", size: "50x50" %><br>
-              <%= book_comment.user.name %>
-            <% end %>
-          </td>
-          <td><%= book_comment.comment %></td>
-          <% unless current_user != book_comment.user %>
-            <td><%= link_to 'Destroy', book_book_comments_path(book_comment.id), class: 'btn-sm btn-danger', method: :delete %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </table>
+
+    <div id="comment-area">
+      <%= render("/book_comments/index", book_comments: @book_comments) %>
+    </div>
+
     <div class="comment-form">
-      <%= form_for [@book, @book_comment] do |f| %>
-        <%= f.text_area :comment, size: "90x5" %>
-        <%= f.submit '送信' %>
+      <%= form_with(model: @book_comment, url: book_book_comments_path(@book.id), data: {remote: true}) do |f| %>
+        <%= f.text_area(:comment, size: "90x5", id: "comment") %>
+        <%= f.submit('送信') %>
       <% end %>
     </div>
 
